@@ -7,5 +7,10 @@ Simple javascript hangman game that can be run in a console.
 3. Run
 
 --Other info--
-1. If you wish to create your own wordlist, please follow the format given
-2. If you delete all user data, please leave [] inside userData.json
+1. Using a new wordlist can break the code, the categories are sorted by the indexes of the entries in wordPool.json and you would have to change the category names in the code manually also
+2. If you delete all user data to have a fresh game, please leave inside userData.json after deleting everything
+```
+{
+    "table": []
+}
+```
