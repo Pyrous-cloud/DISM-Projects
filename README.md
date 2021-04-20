@@ -8,7 +8,7 @@ Simple javascript hangman game that can be run in a console.
 
 --Other info--
 1. Using a new wordlist can break the code, the categories are sorted by the indexes of the entries in wordPool.json and you would have to change the category names in the code manually also
-2. If you delete all user data to have a fresh game, please leave inside userData.json after deleting everything
+2. If you delete all user data to have a fresh game, please leave the code below inside userData.json after deleting everything
 ```
 {
     "table": []
