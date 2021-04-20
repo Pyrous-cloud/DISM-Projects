@@ -1,5 +1,5 @@
 # Hangman-game
-Simple javascript hangman game that can be run in a console.
+Simple javascript hangman game that can be run in a terminal.
 
 --Setup--
 1. Ensure the files are all in the same folder
