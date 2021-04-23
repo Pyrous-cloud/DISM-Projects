@@ -1,5 +1,4 @@
 # Create a electronic services & protection system
-
 # Importing relevant modules
 import json, os, getpass, datetime, time, hashlib, random, re
 from colorama import Fore, Back, Style, init
@@ -23,6 +22,7 @@ user_data = {}
 today_date = date.today()
 expiry_date = (date.today()+ timedelta(364)).strftime("%d/%m/%Y")
 
+
 # Function for user menu
 def user_menu():
     # Making the cart global incase user has old cart to sync
@@ -38,7 +38,6 @@ def user_menu():
 
         # Asking for user input
         user_input = input('Please enter your choice of action (ENTER to exit): ').strip()
-
         # Validation for user input
         if (user_input in '12') and (len(user_input) <= 1):
             # Running the selected option
@@ -71,12 +70,13 @@ def register():
     # Make username global
     global user_name
     global user_data
+    
     while True:
         # Asking for username
         user_name = input('Enter your username (ENTER to exit): ')
         # Formats information and sends to server for validation
-        user_info = f'regnam♣{user_name}'
-        if '♣' in user_name:
+        user_info = f'regnam={user_name}'
+        if '=' in user_name:
             print(Fore.RED + 'Invalid character detected, please try again')
             time.sleep(1.5)
             pass
@@ -127,7 +127,7 @@ def login():
         input_passwd = getpass.getpass()
         encoded_pass = hashlib.sha256(input_passwd.encode('utf-8'))
         hashed_pass = encoded_pass.hexdigest()
-        user_info = f'login♣{user_name}♣{hashed_pass}'
+        user_info = f'login={user_name}={hashed_pass}'
         obuf = user_info.encode() # convert msg string to bytes
         try:
             clientsocket.send(obuf)
@@ -135,7 +135,6 @@ def login():
         except ConnectionAbortedError:
             print(Fore.RED + 'You have timeout due to reaching the max time of 10 minutes')
             os._exit(1)
-        
         
         # Checks if user exists
         if ibuf == 'found':
@@ -154,10 +153,9 @@ def login():
                 print('\n1. Check invoice')
                 print('2. Check membership')
                 print('3. Change password\n')
-
+                
                 # Asking for user input
                 user_input = input('Enter your choice of action (ENTER to exit to shop): ').strip()
-
                 # Validation and running selected choice
                 if (user_input in '123') and (len(user_input) <= 1):
                     if user_input == '1':
@@ -175,8 +173,7 @@ def login():
                         break
                 else:
                     print(Fore.RED + 'You have entered an invalid input, enter an index in the range from 1-4\n')
-                    time.sleep(1.5)
-
+                    time.sleep(1.5)                 
             return True
         elif ibuf == 'notfound':
             print(Fore.RED + 'User not found, please try again\n')
@@ -189,13 +186,13 @@ def login():
         time.sleep(1.5)
 
 
-
 # Function to edit password
 def edit_pass():
     while True:
         # Asking for new password
         user_input = getpass.getpass('New password (ENTER to exit): ')
         regex = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+        
         # Validation for password
         if re.findall(regex, user_input):
             # Hashes password and changes to new
@@ -211,6 +208,7 @@ def edit_pass():
         else:
             break
 
+            
 # Function to print invoice
 def check_invoice():
     # Make username global
@@ -229,7 +227,6 @@ def check_invoice():
                 os._exit(1)
             user_data['inv_num'] = inv_num
 
-                
         # Creating string for invoice and adding information
         invoice = f'''
  ___________________________________
@@ -254,7 +251,6 @@ def check_invoice():
             invoice += f'\n| total: {price:<13}              |'
             index += 1
             invoice += '\n|                                   |'
-
         invoice += '\n-------------------------------------\n'
         print(invoice)
         time.sleep(4)
@@ -304,7 +300,6 @@ def menu():
 
         # Asking for user input
         user_input = input('Please input your choice of action (ENTER to exit): ').strip()
-
         # Validation of input
         if (user_input in '1234') and (len(user_input) <= 1):
             # Running the selected option
@@ -337,7 +332,6 @@ def choose_services(choose_from=list(services.keys())):
         
         # User input
         user_input = input('\nEnter the service you would like to add using its index (ENTER to exit): ').strip()
-
         # Adding service using index and validation
         if user_input.isnumeric():
             if (0 < int(user_input) <= len(choose_from)):
@@ -373,7 +367,6 @@ def search_service():
     # User input
     user_input = input('Please input service to search (ENTER to show all): ').strip()
     print()
-
     # If service is found append to found_services and increment count
     for service in services.keys():
         if user_input.upper() in service.upper():
@@ -393,7 +386,6 @@ def search_service():
 def edit_cart():
     global services_added
     while services_added:
-
         # Printing the services in the cart
         print('Your cart currently contains:')
         for i, service in enumerate(services_added):
@@ -401,7 +393,6 @@ def edit_cart():
 
         # User input
         user_input = input('\nEnter the service to remove (ENTER to exit): ').strip()
-
         # If user removes using index
         if (user_input.isnumeric()) and (0 < int(user_input) <= len(services_added)):
             print(Fore.GREEN + f'{services_added[int(user_input) - 1]} has been removed from the cart\n')
@@ -424,16 +415,15 @@ def caculate_price():
     global services_added
     if services_added:
         price = 0
-
+        
         # Add the price for each service
         for service in services_added:
-            price += services[service]
-        
+            price += services[service]     
+            
         # Print the price of subscription
         while True:
             # Asks for user input
             user_input = input('Would you like to pay now y/n: ').strip()
-
             # Validation of input 
             if (user_input.upper() in 'YN') and (len(user_input) == 1):
                 if user_input.upper() == 'Y':
@@ -446,7 +436,6 @@ def caculate_price():
                         user_data['vip'] = True
                         print(Fore.BLACK + Back.CYAN + 'Because you spent more than 5k you are now a member and get 20 percent off all purchases (including previous transaction)')
                         price *= 0.8
-                    
                     # Round price to 1d.p.
                     price = round(price, 1)
                     print(f'Your subscription will be a total of : ${price:}k/year')
@@ -471,6 +460,7 @@ def caculate_price():
         print(Fore.RED + 'Your cart is empty')
         time.sleep(1.5)
 
+        
 def exit():
     # Make username global
     global user_name
@@ -478,7 +468,6 @@ def exit():
         while True:
             # Asks for user input
             user_input = input('You have items in your cart would you like to save them y/n: ').strip()
-
             if (user_input.upper() in 'YN') and (len(user_input) == 1):
                 # Saves the cart
                 if user_input.upper() == 'Y':
@@ -499,8 +488,7 @@ def cipher(data):
         if char not in "'}{[]":
             ciphertext += chr(ord(char) + 3)
         else:
-            ciphertext += char
-        
+            ciphertext += char        
     return ciphertext
 
 
@@ -512,7 +500,6 @@ def decipher(ciphertext):
             plaintext += chr(ord(char) - 3)
         else:
             plaintext += char
-    
     return plaintext
 
 
@@ -523,8 +510,9 @@ user_menu()
 if user_data:
     user_data = json.dumps(user_data)
     user_data = cipher(user_data)
-    new_info = f'wrinew♣{user_name}♣{user_data}'
+    new_info = f'wrinew={user_name}={user_data}'
     
+    # Handle exception
     try:
         clientsocket.send(new_info.encode())
     except ConnectionAbortedError:
