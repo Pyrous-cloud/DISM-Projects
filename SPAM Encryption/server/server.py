@@ -158,13 +158,11 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
 
 
 def start_server():
-
     import socket
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # this is for easy starting/killing the app
     soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print('Socket created')
-
     try:
         soc.bind(("127.0.0.1", 8888))
         print('Socket bind complete')
@@ -173,14 +171,11 @@ def start_server():
         print('Bind failed. Error : ' + str(sys.exc_info()))
         print( msg.with_traceback() )
         sys.exit()
-
     #Start listening on socket
     soc.listen(10)
     print('Socket now listening')
-
     # for handling task in separate jobs we need threading
     from threading import Thread
-
     # this will make an infinite loop needed for
     # not reseting server for every client
     while True:
@@ -195,6 +190,7 @@ def start_server():
             traceback.print_exc()
     soc.close()
 
+    
 start_server()
 
 
