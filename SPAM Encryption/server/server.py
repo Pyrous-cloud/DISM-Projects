@@ -35,6 +35,7 @@ class ENC_payload:
         self.enc_session_key=""
         self.aes_iv = ""
         self.encrypted_content=""
+        
 RSA_OVERHEAD = 66 # assume there is a overhead of 66 bytes per RSA encrypted block. when using OAEP with sha256
 
 
@@ -63,6 +64,7 @@ def verify_sign(signature, plain_text):
     print("\n")
     pub_key_content=open(".\\server\\keys\\client_public.pem","rb").read() # get the client public key
     pub_key=RSA.import_key(pub_key_content)
+    
     # Verify the signature
     try:
         pkcs1_15.new(pub_key).verify(digest, signature)
@@ -84,10 +86,12 @@ def RSAAES_decrypt(signature):
         print("Decrypting the file content with the private key")
         data=open(filename,"rb").read()
         print(f"data chunk size; {len(data)}")
+        
         # can use either PKCS1_V1_5 or PKCS1_OAEP cipher (different in padding scheme)
         # recommend to use PKCS1_OAEP instead of PKCS1_V1_5 to avoid chosen_cipher_text_attack
         #cipher = PKCS1_v1_5.new(pub_key)
         rsa_cipher = PKCS1_OAEP.new(pri_key)
+        
         if len(data) > keysize:   # encrypted file will be in the mulitples of the keysize.
             # need to decrypt the data in with AES
             enc_payload = pickle.loads(data)
@@ -99,6 +103,7 @@ def RSAAES_decrypt(signature):
         else:    
             plain_text = rsa_cipher.decrypt(data)
             # now save the encrypted file
+            
         new_filename = filename + "_day_end.dat"
         out_bytes=open(f"{new_filename}","wb").write(plain_text)
         verify_sign(signature, plain_text)
