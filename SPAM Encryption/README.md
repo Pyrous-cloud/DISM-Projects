@@ -18,9 +18,6 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 <br />
 
 ## Contributions
-
-<br />
-
 ### Hao xuan
 1. Public key management 
 2. Encryption of day end using RSA and AES
