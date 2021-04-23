@@ -278,13 +278,13 @@ def hashing(passWord):
     hashedPass = hashlib.sha512(passWord)
     return hashedPass.hexdigest()
 
+
 # Login function to obtain login credentials (Done by Jay Kai)
 def login():
     global login_window
     username_entry = tkinter.StringVar()
     password_entry = tkinter.StringVar()
     passphrase_entry = tkinter.StringVar()
-
     login_window = tkinter.Toplevel(window)
     login_window.title("Login")
     login_window.geometry("400x300")
@@ -315,6 +315,7 @@ def main_screen():
     tkinter.Button(window,text="Login",fg="green",bd = "4",width="15",pady="3", command=lambda:[login(),window.withdraw()]).pack()
     window.mainloop()
 
+    
 main_screen()
 
 print(Fore.GREEN + "\nProgram has ended") 
