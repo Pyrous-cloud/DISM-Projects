@@ -15,6 +15,8 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 1. If failed authenthication check 3 times, user will be kicked out of program and failed attempt will be written to error log with relevant information
 2. Else, user is brought to option page where user can choose to get menu or send day-end file
 
+<br />
+
 ## Contributions
 
 <br />
@@ -24,13 +26,9 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 2. Encryption of day end using RSA and AES
 3. Digital signature for day end and menu
 
-<br />
-
 ### Jay Kai
 1. Login function
 2. Error log
-
-<br />
 
 ### Noel
 1. All GUI functions
