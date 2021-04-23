@@ -1,5 +1,5 @@
 # ESP
-ESP store to provide services with sockets.
+ESP store to provide services with sockets so that customers can connect to server and buy services.
 
 <br />
 
