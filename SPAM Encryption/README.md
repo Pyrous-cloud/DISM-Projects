@@ -26,11 +26,11 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 
 <br />
 
-## Jay Kai
+### Jay Kai
 1. Login function
 2. Error log
 
 <br />
 
-## Noel
+### Noel
 1. All GUI functions
