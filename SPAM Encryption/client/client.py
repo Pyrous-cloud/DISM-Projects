@@ -48,6 +48,7 @@ class ENC_payload:
         self.enc_session_key=""
         self.aes_iv = ""
         self.encrypted_content=""
+        
 RSA_OVERHEAD = 66 # assume there is a overhead of 66 bytes per RSA encrypted block. when using OAEP with sha256
 
 
@@ -75,8 +76,10 @@ def verify_sign(signature):
     for b in digest.digest():
         print("{0:02x}".format(b),end="")
     print("\n")
+    
     pub_key_content=open(".\\client\\keys\\server_public.pem","rb").read() # import server public key
     pub_key=RSA.import_key(pub_key_content)
+    
     # Check if signature is valid
     try:
         pkcs1_15.new(pub_key).verify(digest, signature)
@@ -108,6 +111,7 @@ def RSAAES_encrypt():
         print(f"Public Key:\n{pub_key_content}") 
         print(f"keysize: {pub_key.size_in_bytes()}")
         print("Encrypting the file content with the public key")
+        
         # can use either PKCS1_V1_5 or PKCS1_OAEP cipher (different in padding scheme)
         # recommend to use PKCS1_OAEP instead of PKCS1_V1_5 to avoid chosen_cipher_text_attack
         # rsa_cipher = PKCS1_v1_5.new(pub_key)
@@ -115,6 +119,7 @@ def RSAAES_encrypt():
         data=open(return_file,"rb").read()
         print(f"data chunk size; {len(data)}")
         size_limit = pub_key.size_in_bytes() - RSA_OVERHEAD
+        
         if len(data) > size_limit:
             # need to use AES to encrypt the file body.
             # The key being used will be encrypted by the RSA public key and store as part of the encrypted item
@@ -129,6 +134,7 @@ def RSAAES_encrypt():
         else:                 
             encrypted = rsa_cipher.encrypt(data)
             # now save the encrypted file
+            
         out_bytes=open(".\\client\\encrypted_day_end.dat","wb").write(encrypted)
         print(f"Total of {out_bytes} bytes written to encrypted_day_end.dat")
     except:
@@ -139,6 +145,7 @@ def RSAAES_encrypt():
 # Get menu (Done by Hao Xuan)
 def get_menu():
     menu_file = ".\\client\\menu_today.txt"
+    
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as my_socket:
         my_socket.connect((HOST, PORT))
         my_socket.sendall(cmd_GET_MENU )
@@ -161,12 +168,14 @@ def send_day_end():
         time.sleep(0.5) # Prevent multiple transmissions from jamming
         RSAAES_encrypt() # Run function to encrypt
         signature = sign_file()
+        
         temp = open(".\\client\\temp","wb")
         encrypted_file = open(".\\client\\encrypted_day_end.dat","rb")
         encrypted = encrypted_file.read()
         encrypted_file.close()
         temp.write(encrypted + b"|||" + signature)
         temp.close()
+        
         out_file = open(".\\client\\temp","rb")
         file_bytes = out_file.read(1024) 
         while file_bytes != b'':
@@ -174,9 +183,11 @@ def send_day_end():
             file_bytes = out_file.read(1024) # read next block from file
         out_file.close()
         my_socket.close()
-        print("Deleting encrypted file")
+        
+        print("Deleting encrypted file")     
         os.remove(".\\client\\encrypted_day_end.dat") # remove the encrypted file after transmission
         os.remove(".\\client\\temp")
+        
     print(Fore.GREEN + 'Sent', repr(file_bytes))  # for debugging use
     send_window = tkinter.Toplevel(login_window)
     send_window.title("Send Success")
