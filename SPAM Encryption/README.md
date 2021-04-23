@@ -5,9 +5,11 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 
 ## Setup
 1. Change filepath base on preference or leave it to run as relative path
-2. pip3 install colorma 
-3. Run server and then client (python3 <path to file>)
-4. Use credentials username:hello, password:hello and passphrase:secretclient 
+2. pip3 install coloroma
+3. Download C++ Build Tools and tick the first 2 optional options from Visual Studio Build Tools
+4. pip install pycryptodomex --no-binary:all:
+6. Run server and then client (python3 <path to file>)
+7. Use credentials username:hello, password:hello and passphrase:secretclient 
 
 <br />
 
