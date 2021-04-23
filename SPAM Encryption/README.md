@@ -6,7 +6,7 @@ Implementating encryption and other cryptographic principles for SPAM file trans
 ## Setup
 1. Change filepath base on preference or leave it to run as relative path
 2. pip3 install colorma 
-3. Run server and then client
+3. Run server and then client (python3 <path to file>)
 4. Use credentials username:hello, password:hello and passphrase:secretclient 
 
 <br />
