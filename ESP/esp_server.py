@@ -17,7 +17,6 @@ try:
     users = users_file.read()
     users = json.loads(users)
     users_file.close()
-
 except:
     print('The file cannot be found or there is an error with the file...')
     os._exit(1)
@@ -30,6 +29,7 @@ print('Server starts listening... ')
 client= 0
 stopFlag=False
 
+
 # Function to decrypt
 def decipher(ciphertext):
     plaintext = ''
@@ -38,7 +38,6 @@ def decipher(ciphertext):
             plaintext += chr(ord(char) - 3)
         else:
             plaintext += char
-    
     return plaintext
 
 
@@ -50,7 +49,6 @@ def cipher(data):
             ciphertext += chr(ord(char) + 3)
         else:
             ciphertext += char
-        
     return ciphertext
 
 
@@ -67,10 +65,11 @@ def handler(con,client_addr):
         # Get the time and date everytime user communicates with server
         today_date = datetime.now()
         today_date = today_date.strftime('%d/%m/%Y %H:%M:%S')
-        buf_list = buf.split('♣')
+        buf_list = buf.split('=')
         # Printing connection info
         con_info = f'User from: {client_addr} : INSTRUCTION={buf_list[0]} : TIME={today_date}'
         print(con_info)
+        
         # Write the information into the log and if there is a login write into alive clients
         try:
           log_file = open('C:.\\esp_data\\log.txt', 'a')
@@ -115,7 +114,6 @@ def handler(con,client_addr):
               con.send('nil'.encode())
           else:
               con.send('notfound'.encode()) 
-
         # Client requests for a invoice number, server generates one and send back
         elif buf_list[0] == 'geninv':
           while True:
@@ -127,7 +125,6 @@ def handler(con,client_addr):
             else:
               con.send(inv_num.encode())
               break
-
         # Client registers for a new user, server checks if username exists
         elif buf_list[0] == 'regnam':
           if buf_list[1] in users:
@@ -136,12 +133,12 @@ def handler(con,client_addr):
             con.send('nil'.encode())
           else:
             con.send('sucreg'.encode())
-            
         # Client exits the program, server writes new data into the relevant files
         elif buf_list[0] == 'wrinew':                       
           buf_list[2] = decipher(buf_list[2])
           buf_list[2] = json.loads(buf_list[2])
           users[buf_list[1]] = buf_list[2]
+        
           # Opening file using json
           try:
               # User data file
@@ -155,7 +152,6 @@ def handler(con,client_addr):
               alive_clients_file = open('C:.\\esp_data\\alive_clients.json', 'w')
               alive_clients_file.write(json.dumps(alive_clients, indent=4))
               alive_clients_file.close()
-
           except:
               print('The file cannot be found or there is an error with the file...a')
               os._exit(1)
