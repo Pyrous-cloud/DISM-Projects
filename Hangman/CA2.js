@@ -3,9 +3,9 @@
     HangMan Game
     ------------
 
-    Student ID: p2026086
+    Student ID: 
     Name: Lu Hao Xuan
-    Class: DISM/FT/1A03
+    Class:
     Input/Output files: line 21 and 22(respectively)
 */
 
