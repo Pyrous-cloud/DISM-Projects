@@ -1,14 +1,15 @@
 # ESP
 ESP store to provide services with sockets so that customers can connect to server and buy services.
 
-<br />
+<br/>
 
 ## Setup
 1. Change filepath to your preference (default C:\PSEC\esp.py)
 2. pip3 install coloroma
-3. Run server then client (python3 <path to file>) / admin
+3. python3 esp_server.py
+4. python3 esp.py
 
-<br />
+<br/>
 
 ## Other info
 1. Log file
