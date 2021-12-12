@@ -1,5 +1,5 @@
 # Hangman-game
-Simple javascript hangman game in a terminal
+Simple javascript hangman game in a terminal.
 ## Setup
 1. Change the filePath in line 20
 2. ```bash
