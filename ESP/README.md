@@ -1,19 +1,9 @@
 # ESP
-ESP store to provide services with sockets so that customers can connect to server and buy services.
-
-<br/>
-
+ESP store to provide services using the sockets library.  
 ## Setup
-1. Change filepath to your preference (default C:\PSEC\esp.py)
-2. pip3 install coloroma
-3. python3 esp_server.py
-4. python3 esp.py
+```
+pip3 install colorama
+python3 esp_server.py
+python3 esp.py
+```  
 
-<br/>
-
-## Other info
-1. Log file
-2. Threading
-3. Server denies multiple login
-4. Only sends required data and "encrypted"
-5. Passwords are hashed 
