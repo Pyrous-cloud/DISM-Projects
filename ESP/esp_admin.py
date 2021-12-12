@@ -40,7 +40,7 @@ def edit_services():
 
         # Asks for input and checks
         user_input = input('Enter your choice of action (ENTER to exit): ').strip()
-        # Validation of input
+
         if (user_input in '123') and (len(user_input) <= 1):   
             # Validation for input
             if user_input == '1':
@@ -71,8 +71,10 @@ def remove_service():
     while services:
         # Print the list of services
         print_services()
+        
         # Asks for what the admin would like to remove
         user_input = input('Enter the service index/name you would like to remove (ENTER to exit): ').strip()
+
         # Removing service
         if (user_input.isnumeric()) and (0 < int(user_input) <= len(services)):
             print(Fore.GREEN + f'{list(services.keys())[int(user_input) - 1]} has been removed from the services')
@@ -96,11 +98,13 @@ def remove_service():
                             # If user no longer has any subscriptions after removing the service delete the entire key
                             if not users[user][list(users[user].keys())[i]]:
                                 to_be_deleted.append(list(users[user].keys())[i])
+
                     for date in to_be_deleted:
                         del(users[user][date])
 
             # Deletes service from the service.json file
             del(services[service_delete]) 
+
         # Invalid input
         elif user_input:
             print(Fore.RED + f'You have entered an invalid input, enter an index from the range of 1-{len(services)}')
@@ -118,10 +122,11 @@ def add_service():
     while True:
         # Prints the list of services
         print_services()
+
         # Asks for the name of the new service and checks if it exists
         new_service = input('Enter the service name you wish to add, limit to 20 characters (ENTER to exit): ').strip()
 
-        # Validation of input
+        # Validation for input
         if (new_service.upper() not in [service.upper() for service in list(services.keys())]):
             if (len(new_service) <= 20):
                 # Asks for the price of the new service
@@ -173,26 +178,30 @@ def modify_service():
                 time.sleep(1.5)
             else:
                 break
+
         # ENTER to exit
         if not user_input:
             break
-  
-        # Validation of input
+        
+        # Checks if input is valid
         while True:
             # Print choices available
             print('\n1. To modify name of service')
             print('2. To modify the price of service\n')
-            
+
             user_input = input('Input your choice of action or (ENTER to exit): ').strip()
+
             # Validation of input
             if (user_input in '12') and (len(user_input) <= 1):
                 break
             print(Fore.RED + 'You have entered an invalid input, enter an index from 1-2')
             time.sleep(1.5)
+
         # Modify name of service
         if user_input == '1':
             while True:
                 user_input = input('Enter the new name for the service, limit to 20 char (ENTER to exit): ').strip()
+
                 # Validation of input
                 if (user_input.upper() not in [service.upper() for service in list(services.keys())]):
                     if (len(user_input) <= 20):
@@ -203,10 +212,10 @@ def modify_service():
                 else:
                     print(Fore.RED + 'The service already exists')
                     time.sleep(1.5)
+
             if user_input:
                 print(Fore.GREEN + f'The name of {key_modify} has been changed to {user_input}')
                 time.sleep(1.5)
-                
                 # Changes key name in services.json
                 services[user_input] = services.pop(key_modify)
                 # Checks if any users has the service and modifies the price
@@ -216,6 +225,7 @@ def modify_service():
                             if key_modify in users[user][list(users[user].keys())[i]]:
                                 users[user][list(users[user].keys())[i]].remove(key_modify)
                                 users[user][list(users[user].keys())[i]].append(user_input)
+    
         # Modify price of service
         elif user_input == '2':
             while True:
