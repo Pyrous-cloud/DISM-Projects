@@ -8,14 +8,12 @@ Implementating encryption and other cryptographic principles for SPAM file trans
    ```
 3. Default credentials username:hello, password:hello and passphrase:secretclient  
 ## Contributions
-### Hao xuan
+### Hao Xuan
 1. Public key management 
 2. Encryption of day end using RSA and AES
 3. Digital signature for day end and menu
-
 ### Jay Kai
 1. Login function
 2. Error log
-
 ### Noel
 1. All GUI functions
