@@ -1,9 +1,16 @@
 # Create a electronic services & protection system
 # Importing relevant modules
-import json, os, getpass, datetime, time, hashlib, random, re
+import datetime
+import getpass
+import hashlib
+import json
+import os
+import random
+import re
+import socket
+import time
 from colorama import Fore, Back, Style, init
 from datetime import date, datetime, timedelta
-import socket
 
 # Resetting colours after every print
 init(autoreset=True)
