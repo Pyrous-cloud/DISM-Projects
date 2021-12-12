@@ -1,6 +1,8 @@
 # Admin to configure esp
 # Importing relevant modules
-import os, json, time
+import json
+import os
+import time
 from colorama import Fore, Back, Style, init
 
 # Resetting colours after every print
