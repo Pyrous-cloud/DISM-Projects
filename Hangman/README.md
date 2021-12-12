@@ -7,7 +7,7 @@ Simple javascript hangman game in a terminal
    ```
 ## Other info
 * If you delete all user data to have a fresh game, please leave the code below inside userData.json after deleting everything
-```javascript
+```js
 {
     "table": []
 }
